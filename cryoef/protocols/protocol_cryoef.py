@@ -28,13 +28,11 @@ Protocol wrapper around the cryoEF tool for analysing the orientation
 distribution of single-particle EM data
 """
 
-import os
-
 import pyworkflow.protocol.params as params
 from pyworkflow.em.protocol import ProtAnalysis3D, LEVEL_ADVANCED
 from pyworkflow.em.data import Volume
-from pyworkflow.utils import join
-from convert import getEnviron, writeAnglesFn, parseOutput
+import cryoef
+from cryoef.convert import writeAnglesFn, parseOutput
 
 
 class ProtCryoEF(ProtAnalysis3D):
@@ -132,9 +130,9 @@ class ProtCryoEF(ProtAnalysis3D):
         """ Call cryoEF with the appropriate parameters. """
         args = self._getArgs()
         param = ' '.join(['%s %s' % (k, str(v)) for k, v in args.iteritems()])
-        program = self._getProgram()
+        program = cryoef.Plugin.getProgram()
 
-        self.runJob(program, param, env=getEnviron())
+        self.runJob(program, param, env=cryoef.Plugin.getEnviron())
 
     def createOutputStep(self):
         partSet = self._getInputParticles()
@@ -193,13 +191,6 @@ class ProtCryoEF(ProtAnalysis3D):
             args.update({'-r': self.FSCres.get()})
 
         return args
-
-    def _getProgram(self):
-        """ Return the program binary that will be used. """
-        if 'CRYOEF_HOME' not in os.environ:
-            return None
-        cmd = join(os.environ['CRYOEF_HOME'], 'bin', 'cryoEF')
-        return str(cmd)
 
     def _getInputParticles(self):
         return self.inputParticles.get()

@@ -25,12 +25,8 @@
 # *
 # **************************************************************************
 """
-Bibtex string file for cryoEF package.
-"""
 
-_bibtexStr = """
-
-@article{naydenova2017,
+@article{Naydenova2017,
   title={Measuring the effects of particle orientation to improve the efficiency of electron cryomicroscopy},
   author={Naydenova, K. and Russo, C.J.},
   journal={Nature communications},
@@ -44,9 +40,3 @@ _bibtexStr = """
 
 
 """
-
-
-
-from pyworkflow.utils import parseBibTex
-
-_bibtex = parseBibTex(_bibtexStr)  

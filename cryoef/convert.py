@@ -23,44 +23,10 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-This module contains converter functions that will serve to:
-1. Write from base classes to cryoEF specific files
-2. Read from cryoEF files to base classes
-"""
 
 import os
-from numpy import rad2deg, deg2rad
+from numpy import rad2deg
 from numpy.linalg import inv
-
-from pyworkflow.utils import Environ
-from pyworkflow.utils.path import join
-
-CRYOEF_HOME_VAR = 'CRYOEF_HOME'
-
-
-def getEnviron():
-    """ Setup the environment variables needed to launch cryoEF. """
-    environ = Environ(os.environ)
-    CRYOEF_HOME = os.environ[('%s' % CRYOEF_HOME_VAR)]
-
-    environ.update({
-        'PATH': join(CRYOEF_HOME, 'bin'),
-    }, position=Environ.BEGIN)
-    return environ
-
-
-_environ = getEnviron()
-
-SUPPORTED_VERSIONS = ['1.1.0']
-
-
-def getVersion():
-    path = os.environ[CRYOEF_HOME_VAR]
-    for v in SUPPORTED_VERSIONS:
-        if v in path:
-            return v
-    return ''
 
 
 def parseOutput(filename):
@@ -110,4 +76,3 @@ def geometryFromMatrix(matrix, inverseTransform=True):
         shifts = translation_from_matrix(matrix)
     angles = -rad2deg(euler_from_matrix(matrix, axes='szyz'))
     return shifts, angles
-

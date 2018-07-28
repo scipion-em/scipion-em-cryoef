@@ -31,8 +31,8 @@ from pyworkflow.protocol.params import LabelParam, EnumParam, IntParam
 from pyworkflow.utils import exists
 from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER
 
-from protocol_cryoef import ProtCryoEF
-from convert import iterAngles
+from cryoef.protocols import ProtCryoEF
+from cryoef.convert import iterAngles
 
 VOL_RS_PSF = 0
 VOL_FS_PSF = 1

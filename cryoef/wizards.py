@@ -29,7 +29,7 @@ This module implement some wizards
 
 from pyworkflow.em.constants import UNIT_ANGSTROM
 from pyworkflow.em.wizard import ParticleMaskRadiusWizard
-from protocol_cryoef import ProtCryoEF
+from cryoef.protocols import ProtCryoEF
 
 
 class cryoEFMaskDiameterWizard(ParticleMaskRadiusWizard):

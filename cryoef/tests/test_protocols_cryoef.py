@@ -27,8 +27,8 @@
 
 from pyworkflow.utils import exists
 from pyworkflow.tests import BaseTest, DataSet, setupTestProject
-from pyworkflow.em.packages.cryoEF import ProtCryoEF
 from pyworkflow.em.protocol import ProtImportParticles
+from cryoef.protocols import ProtCryoEF
 
 
 class TestCryoEFBase(BaseTest):
