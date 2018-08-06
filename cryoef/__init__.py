@@ -26,61 +26,36 @@
 
 import os
 import pyworkflow.em
-from pyworkflow.utils import Environ, join
+from pyworkflow.utils import Environ
 
 _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
 
-CRYOEF_HOME_VAR = 'CRYOEF_HOME'
+CRYOEF_HOME = 'CRYOEF_HOME'
 
 
-# The following class is required for Scipion to detect this Python module
-# as a Scipion Plugin. It needs to specify the PluginMeta __metaclass__
-# Some function related to the underlying package binaries need to be
-# implemented
-class Plugin:
-    #__metaclass__ = pyworkflow.em.PluginMeta
+class Plugin(pyworkflow.em.Plugin):
+    _homeVar = CRYOEF_HOME
+    _pathVars = [CRYOEF_HOME]
+    _supportedVersions = ['1.1.0']
+
+    @classmethod
+    def _defineVariables(cls):
+        cls._defineEmVar(CRYOEF_HOME, 'cryoEF-1.1.0')
 
     @classmethod
     def getEnviron(cls):
         """ Setup the environment variables needed to launch cryoEF. """
         environ = Environ(os.environ)
-        CRYOEF_HOME = os.environ[('%s' % CRYOEF_HOME_VAR)]
-
-        environ.update({
-            'PATH': join(CRYOEF_HOME, 'bin'),
-        }, position=Environ.BEGIN)
+        environ.update({'PATH': cls.getHome('bin')}, position=Environ.BEGIN)
         return environ
-
-    @classmethod
-    def getVersion(cls):
-        path = os.environ[CRYOEF_HOME_VAR]
-        for v in cls.getSupportedVersions():
-            if v in path:
-                return v
-        return ''
-
-    @classmethod
-    def getSupportedVersions(cls):
-        """ Return the list of supported binary versions. """
-        return ['1.1.0']
-
-    @classmethod
-    def validateInstallation(cls):
-        """ This function will be used to check if package is properly installed. """
-        environ = cls.getEnviron()
-        missingPaths = ["%s: %s" % (var, environ[var])
-                        for var in [CRYOEF_HOME_VAR]
-                        if not os.path.exists(environ[var])]
-
-        return (["Missing variables:"] + missingPaths) if missingPaths else []
 
     @classmethod
     def getProgram(cls):
         """ Return the program binary that will be used. """
-        if CRYOEF_HOME_VAR not in os.environ:
+        if CRYOEF_HOME not in os.environ:
             return None
-        cmd = join(os.environ[CRYOEF_HOME_VAR], 'bin', 'cryoEF')
+        cmd = cls.getHome('bin', 'cryoEF')
         return str(cmd)
 
 
