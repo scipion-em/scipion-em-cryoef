@@ -26,5 +26,5 @@
 
 CRYOEF_HOME = 'CRYOEF_HOME'
 
-#Supported versiond
+#Supported versions
 V1_1_0 = '1.1.0'
