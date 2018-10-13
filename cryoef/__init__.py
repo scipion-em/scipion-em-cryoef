@@ -28,16 +28,16 @@ import os
 import pyworkflow.em
 from pyworkflow.utils import Environ
 
+from cryoef.constants import CRYOEF_HOME, V1_1_0
+
 _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
-
-CRYOEF_HOME = 'CRYOEF_HOME'
 
 
 class Plugin(pyworkflow.em.Plugin):
     _homeVar = CRYOEF_HOME
     _pathVars = [CRYOEF_HOME]
-    _supportedVersions = ['1.1.0']
+    _supportedVersions = [V1_1_0]
 
     @classmethod
     def _defineVariables(cls):
@@ -53,10 +53,13 @@ class Plugin(pyworkflow.em.Plugin):
     @classmethod
     def getProgram(cls):
         """ Return the program binary that will be used. """
-        if CRYOEF_HOME not in os.environ:
-            return None
         cmd = cls.getHome('bin', 'cryoEF')
         return str(cmd)
 
+    @classmethod
+    def defineBinaries(cls, env):
+        env.addPackage('cryoEF', version='1.1.0',
+                       tar='cryoEF_v1.1.0.tgz',
+                       default=True)
 
 pyworkflow.em.Domain.registerPlugin(__name__)
