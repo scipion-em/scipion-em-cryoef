@@ -33,23 +33,12 @@ from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER
 
 from cryoef.protocols import ProtCryoEF
 from cryoef.convert import iterAngles
+from cryoef.constants import *
 
-VOL_RS_PSF = 0
-VOL_FS_PSF = 1
-
-VOLUME_SLICES = 0
-VOLUME_CHIMERA = 1
 
 
 class CryoEFViewer(ProtocolViewer):
-    """
-    Visualization tools for cryoEF results.
-    
-    cryoEF is software tool for analysing the orientation
-    distribution of single-particle EM data.
-
-    Find more information at http://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/
-    """
+    """ Visualization of cryoEF results. """
            
     _environments = [DESKTOP_TKINTER]
     _targets = [ProtCryoEF]

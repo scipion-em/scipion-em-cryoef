@@ -26,5 +26,12 @@
 
 CRYOEF_HOME = 'CRYOEF_HOME'
 
-#Supported versions
+# Viewer constants
+VOL_RS_PSF = 0
+VOL_FS_PSF = 1
+
+VOLUME_SLICES = 0
+VOLUME_CHIMERA = 1
+
+# Supported versions
 V1_1_0 = '1.1.0'

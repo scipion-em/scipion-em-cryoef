@@ -37,8 +37,7 @@ from cryoef.convert import writeAnglesFn, parseOutput
 
 class ProtCryoEF(ProtAnalysis3D):
     """
-    cryoEF is software tool for analysing the orientation
-    distribution of single-particle EM data.
+    Protocol for analysing the orientation distribution of single-particle EM data.
      
     Find more information at http://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/
     """
