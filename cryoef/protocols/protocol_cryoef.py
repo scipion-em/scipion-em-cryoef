@@ -41,7 +41,7 @@ class ProtCryoEF(ProtAnalysis3D):
      
     Find more information at http://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/
     """
-    _label = 'cryoEF'
+    _label = 'orientation analysis'
 
     def __init__(self, **kwargs):
         ProtAnalysis3D.__init__(self, **kwargs)
