@@ -6,4 +6,4 @@ cryoEF is a program developed by [K. Naydenova and C. Russo](https://www.mrc-lmb
 
 Supported versions of Cryoef: 1.1.0
 
-![build status](http://heisenberg.cnb.csic.es:9980/badges/cryoef_devel.svg "Build status")
+![build status](http://arquimedes.cnb.csic.es:9980/badges/cryoef_devel.svg "Build status")
