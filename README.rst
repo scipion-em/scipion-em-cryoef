@@ -25,4 +25,4 @@ Alternatively, in devel mode:
     scipion installp -p local/path/to/scipion-em-cryoef --devel
 
 
-.. image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_devel.svg "Build status")
+.. image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_devel.svg
