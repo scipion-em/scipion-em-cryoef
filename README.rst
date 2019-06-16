@@ -11,7 +11,7 @@ This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crus
 Installation
 ------------
 
-You will need to use `2.0 >https://github.com/I2PC/scipion/releases/tag/V2.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
+You will need to use `2.0 <https://github.com/I2PC/scipion/releases/tag/V2.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
 
 a) Stable version
 
@@ -48,7 +48,7 @@ Protocols
 
     * orientation analysis
 
-Detailed manual can be found in software/em/cryoEF-1.1.0/cryoEF_v1.1.0_manual.pdf
+Detailed manual can be found in ``software/em/cryoEF-1.1.0/cryoEF_v1.1.0_manual.pdf``
 
 References
 ----------
