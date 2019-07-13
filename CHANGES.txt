@@ -1,3 +1,4 @@
+1.0.5 - switch to rst format
 1.0.4 - minor corrections
 1.0.2 - Include protocol.conf to create the source distribution
 1.0.1 - Add protocols.conf and update viewers import

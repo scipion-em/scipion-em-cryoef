@@ -1,28 +1,56 @@
 =============
-CRYOEF PLUGIN
+Cryoef plugin
 =============
 
-This plugin allows to use Cryoef program within the Scipion framework.
+This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/>`_ program.
 
-cryoEF is a program developed by [K. Naydenova and C. Russo](https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/) for measuring the effects of particle orientation.
+.. figure:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_devel.svg
+   :align: left
+   :alt: build status
 
-Supported versions of Cryoef: 1.1.0
+Installation
+------------
 
-=====
-Setup
-=====
+You will need to use `2.0 <https://github.com/I2PC/scipion/releases/tag/V2.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
 
-- **Install this plugin:**
+a) Stable version
 
 .. code-block::
 
     scipion installp -p scipion-em-cryoef
 
-Alternatively, in devel mode:
+b) Developer's version
 
-.. code-block::
+    * download repository
 
-    scipion installp -p local/path/to/scipion-em-cryoef --devel
+    .. code-block::
 
+        git clone https://github.com/scipion-em/scipion-em-cryoef.git
 
-.. image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_devel.svg
+    * install
+
+    .. code-block::
+
+        scipion installp -p path_to_scipion-em-cryoef --devel
+
+CryoEF binaries will be installed automatically with the plugin, but you can also link an existing installation. 
+Default installation path assumed is ``software/em/cryoEF-1.1.0``, if you want to change it, set *CRYOEF_HOME* in `scipion.conf`` file to the folder where the cryoEF is installed. To check the installation, simply run the following Scipion test:
+
+``scipion test cryoef.tests.test_protocols_cryoef.TestCryoEF``
+
+Supported versions
+------------------
+
+1.1.0
+
+Protocols
+---------
+
+    * orientation analysis
+
+Detailed manual can be found in ``software/em/cryoEF-1.1.0/cryoEF_v1.1.0_manual.pdf``
+
+References
+----------
+
+    * `1.  Naydenova, K and Russo, CJ "Measuring the effects of particle orientation to improve the efficiency of electron cryomicroscopy" Nature Communications (2017). <https://www.nature.com/articles/s41467-017-00782-3>`_
