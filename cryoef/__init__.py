@@ -25,7 +25,7 @@
 # **************************************************************************
 
 import os
-import pyworkflow.em
+import pwem
 from pyworkflow.utils import Environ
 
 from cryoef.constants import CRYOEF_HOME, V1_1_0
@@ -34,7 +34,7 @@ _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
 
 
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = CRYOEF_HOME
     _pathVars = [CRYOEF_HOME]
     _supportedVersions = [V1_1_0]
@@ -62,4 +62,4 @@ class Plugin(pyworkflow.em.Plugin):
                        tar='cryoEF_v1.1.0.tgz',
                        default=True)
 
-pyworkflow.em.Domain.registerPlugin(__name__)
+pwem.Domain.registerPlugin(__name__)

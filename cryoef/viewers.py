@@ -28,7 +28,7 @@ from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pyworkflow.protocol.params import LabelParam, EnumParam, IntParam
 from pyworkflow.utils import exists
 from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER
-from pyworkflow.em.viewers import DataView, ChimeraClientView, EmPlotter
+from pwem.viewers import DataView, ChimeraClientView, EmPlotter
 
 from cryoef.protocols import ProtCryoEF
 from cryoef.convert import iterAngles

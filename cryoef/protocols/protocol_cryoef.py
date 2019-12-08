@@ -29,8 +29,8 @@ distribution of single-particle EM data
 """
 
 import pyworkflow.protocol.params as params
-from pyworkflow.em.protocol import ProtAnalysis3D, LEVEL_ADVANCED
-from pyworkflow.em.data import Volume
+from pwem.protocols import ProtAnalysis3D
+from pwem.objects import Volume
 import cryoef
 from cryoef.convert import writeAnglesFn, parseOutput
 
@@ -86,22 +86,22 @@ class ProtCryoEF(ProtAnalysis3D):
                       help='Approximate particle diameter, in Angstroms.')
         form.addParam('angAcc', params.IntParam, default=1,
                       label='Angular accuracy (deg)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='Angular accuracy in degrees.')
         form.addParam('Bfact', params.IntParam, default=160,
                       label='B-factor (A^2)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='B-factor estimate for your data, if one was '
                            'estimated for the 3D reconstruction.')
         form.addParam('FSCres', params.FloatParam, default=-1,
                       label='FSC resolution (A)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='FSC resolution using 0.143 criterion. '
                            'Default (-1) value means that resolution will be '
                            'automatically estimated from B-factor.')
         form.addParam('maxTilt', params.IntParam, default=45,
                       label='Max tilt angle (deg)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='Maximum tilt angle allowed for prediction '
                            'algorithm, in degrees.')
 
@@ -128,7 +128,7 @@ class ProtCryoEF(ProtAnalysis3D):
     def runCryoEFStep(self):
         """ Call cryoEF with the appropriate parameters. """
         args = self._getArgs()
-        param = ' '.join(['%s %s' % (k, str(v)) for k, v in args.iteritems()])
+        param = ' '.join(['%s %s' % (k, str(v)) for k, v in args.items()])
         program = cryoef.Plugin.getProgram()
 
         self.runJob(program, param, env=cryoef.Plugin.getEnviron())

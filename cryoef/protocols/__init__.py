@@ -24,4 +24,4 @@
 # *
 # **************************************************************************
 
-from protocol_cryoef import ProtCryoEF
+from .protocol_cryoef import ProtCryoEF

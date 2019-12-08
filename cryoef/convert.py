@@ -67,7 +67,8 @@ def writeAnglesFn(img, fn):
 
 
 def geometryFromMatrix(matrix, inverseTransform=True):
-    from pyworkflow.em.convert.transformations import  translation_from_matrix, euler_from_matrix
+    from pwem.convert.transformations import (translation_from_matrix,
+                                              euler_from_matrix)
 
     if inverseTransform:
         matrix = inv(matrix)

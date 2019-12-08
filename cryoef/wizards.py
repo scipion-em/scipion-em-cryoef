@@ -27,8 +27,8 @@
 This module implement some wizards
 """
 
-from pyworkflow.em.constants import UNIT_ANGSTROM
-from pyworkflow.em.wizard import ParticleMaskRadiusWizard
+from pwem.constants import UNIT_ANGSTROM
+from pwem.wizards import ParticleMaskRadiusWizard
 from cryoef.protocols import ProtCryoEF
 
 
