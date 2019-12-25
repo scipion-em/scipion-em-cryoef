@@ -66,7 +66,7 @@ class ProtCryoEF(ProtAnalysis3D):
 
         self._updateFilenamesDict(myDict)
 
-    #--------------------------- DEFINE param functions ------------------------
+    # --------------------------- DEFINE param functions ----------------------
 
     def _defineParams(self, form):
         form.addSection(label='Input')
@@ -105,7 +105,7 @@ class ProtCryoEF(ProtAnalysis3D):
                       help='Maximum tilt angle allowed for prediction '
                            'algorithm, in degrees.')
 
-    #--------------------------- INSERT steps functions ------------------------
+    # --------------------------- INSERT steps functions ----------------------
     
     def _insertAllSteps(self):
         # Insert processing steps
@@ -114,7 +114,7 @@ class ProtCryoEF(ProtAnalysis3D):
         self._insertFunctionStep('runCryoEFStep')
         self._insertFunctionStep('createOutputStep')
 
-    #--------------------------- STEPS functions -------------------------------
+    # --------------------------- STEPS functions -----------------------------
     
     def convertInputStep(self):
         """ Convert input angles as expected by cryoEF."""
@@ -152,7 +152,7 @@ class ProtCryoEF(ProtAnalysis3D):
         self._defineSourceRelation(self.inputParticles, vol)
         self._defineSourceRelation(self.inputParticles, vol2)
 
-    #--------------------------- INFO functions --------------------------------
+    # --------------------------- INFO functions ------------------------------
     
     def _summary(self):
         summary = []
@@ -174,7 +174,7 @@ class ProtCryoEF(ProtAnalysis3D):
 
         return errors
     
-    #--------------------------- UTILS functions -------------------------------
+    # --------------------------- UTILS functions -----------------------------
  
     def _getArgs(self):
         """ Prepare the args dictionary."""

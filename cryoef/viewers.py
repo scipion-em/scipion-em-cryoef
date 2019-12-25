@@ -40,7 +40,7 @@ class CryoEFViewer(ProtocolViewer):
            
     _environments = [DESKTOP_TKINTER]
     _targets = [ProtCryoEF]
-    _label = 'viewer cryoEF'
+    _label = 'viewer'
 
     def __init__(self, **kwargs):
         ProtocolViewer.__init__(self, **kwargs)

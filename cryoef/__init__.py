@@ -26,6 +26,7 @@
 
 import os
 import pwem
+
 from pyworkflow.utils import Environ
 
 from cryoef.constants import CRYOEF_HOME, V1_1_0
@@ -61,5 +62,6 @@ class Plugin(pwem.Plugin):
         env.addPackage('cryoEF', version='1.1.0',
                        tar='cryoEF_v1.1.0.tgz',
                        default=True)
+
 
 pwem.Domain.registerPlugin(__name__)

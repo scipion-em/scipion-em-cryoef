@@ -39,7 +39,7 @@ class cryoEFMaskDiameterWizard(ParticleMaskRadiusWizard):
     def _getParameters(self, protocol):
         label, value = self._getInputProtocol(self._targets, protocol)
 
-        protParams = {}
+        protParams = dict()
         protParams['input'] = self._getProtocolImages(protocol)
         protParams['label'] = label
         protParams['value'] = value / 2
