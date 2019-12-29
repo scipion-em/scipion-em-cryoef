@@ -25,6 +25,7 @@
 # **************************************************************************
 
 import os
+from io import open
 from numpy import rad2deg
 from numpy.linalg import inv
 

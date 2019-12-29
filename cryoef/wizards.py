@@ -49,7 +49,7 @@ class cryoEFMaskDiameterWizard(ParticleMaskRadiusWizard):
         _objs = self._getParameters(protocol)['input']
         return ParticleMaskRadiusWizard._getListProvider(self, _objs)
 
-    def show(self, form):
+    def show(self, form, *args):
         params = self._getParameters(form.protocol)
         _value = params['value']
         _label = params['label']
