@@ -63,5 +63,3 @@ class Plugin(pwem.Plugin):
                        tar='cryoEF_v1.1.0.tgz',
                        default=True)
 
-
-pwem.Domain.registerPlugin(__name__)

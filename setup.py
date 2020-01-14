@@ -199,4 +199,7 @@ setup(
         'Bug Reports': 'https://github.com/scipion-em/scipion-em-cryoef/issues',
         'Source': 'https://github.com/scipion-em/scipion-em-cryoef/',
     },
+    entry_points={
+        'pyworkflow.plugin': 'cryoef = cryoef'
+    },
 )
