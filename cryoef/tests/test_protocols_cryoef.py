@@ -25,10 +25,11 @@
 # **************************************************************************
 
 
-from pyworkflow.utils import exists
+from pyworkflow.utils import exists, magentaStr
 from pyworkflow.tests import BaseTest, DataSet, setupTestProject
 from pwem.protocols import ProtImportParticles
-from cryoef.protocols import ProtCryoEF
+
+from ..protocols import ProtCryoEF
 
 
 class TestCryoEFBase(BaseTest):
@@ -55,9 +56,11 @@ class TestCryoEF(TestCryoEFBase):
     def setUpClass(cls):
         setupTestProject(cls)
         TestCryoEFBase.setData()
+        print(magentaStr("\n==> Importing data - particles:"))
         cls.protImportParts = cls.runImportParticlesStar(cls.partFn, 50000, 7.08)
 
     def test_cryoEF(self):
+        print(magentaStr("\n==> Testing cryoEF:"))
         protFsc = self.newProtocol(ProtCryoEF,
                                    inputParticles=self.protImportParts.outputParticles,
                                    diam=300)
