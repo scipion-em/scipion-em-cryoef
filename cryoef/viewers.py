@@ -89,7 +89,7 @@ class CryoEFViewer(EmProtocolViewer):
 # =============================================================================
 # ShowVolumes
 # =============================================================================
-    def _showVolumes(self, paramName=None):
+    def _showVolumes(self):
         if self.displayVol == VOLUME_CHIMERA:
             return self._showVolumesChimera()
         elif self.displayVol == VOLUME_SLICES:
@@ -109,7 +109,7 @@ class CryoEFViewer(EmProtocolViewer):
 # =============================================================================
 # showAngularDistribution
 # =============================================================================
-    def _showAngularDistribution(self, paramName=None):
+    def _showAngularDistribution(self):
         views = []
         plot = self._createAngDist2D()
         views.append(plot)
@@ -133,22 +133,21 @@ class CryoEFViewer(EmProtocolViewer):
 
 # =============================================================================
 
-    def _showHistogram(self, param=None):
+    def _showHistogram(self):
         fn = self.protocol._getFileName('output_hist')
-        f = open(fn)
-        views = []
-        numberOfBins = 10
-        plotter = EmPlotter()
-        plotter.createSubPlot("PSF Resolution histogram",
-                              "Resolution (A)", "Ang (str)")
-        resolution = [float(line.strip()) for line in f]
-        f.close()
+        with open(fn) as f:
+            views = []
+            numberOfBins = 10
+            plotter = EmPlotter()
+            plotter.createSubPlot("PSF Resolution histogram",
+                                  "Resolution (A)", "Ang (str)")
+            resolution = [float(line.strip()) for line in f]
         plotter.plotHist(resolution, nbins=numberOfBins)
         plotter.show()
 
         return views.append(plotter)
 
-    def _showLogFile(self, param=None):
+    def _showLogFile(self):
         view = self.textView([self.protocol._getFileName('output_log')],
                              "Output log file")
         return [view]

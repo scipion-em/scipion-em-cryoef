@@ -31,7 +31,7 @@ distribution of single-particle EM data
 import pyworkflow.protocol.params as params
 from pwem.protocols import ProtAnalysis3D
 from pwem.objects import Volume
-import cryoef
+from cryoef import Plugin
 from cryoef.convert import writeAnglesFn, parseOutput
 
 
@@ -120,18 +120,17 @@ class ProtCryoEF(ProtAnalysis3D):
         """ Convert input angles as expected by cryoEF."""
         partSet = self._getInputParticles()
         anglesFn = self._getFileName('anglesFn')
-        f = open(anglesFn, 'w')
-        for part in partSet:
-            writeAnglesFn(part, f)
-        f.close()
+        with open(anglesFn, 'a') as f:
+            for part in partSet:
+                writeAnglesFn(part, f)
 
     def runCryoEFStep(self):
         """ Call cryoEF with the appropriate parameters. """
         args = self._getArgs()
         param = ' '.join(['%s %s' % (k, str(v)) for k, v in args.items()])
-        program = cryoef.Plugin.getProgram()
+        program = Plugin.getProgram()
 
-        self.runJob(program, param, env=cryoef.Plugin.getEnviron())
+        self.runJob(program, param, env=Plugin.getEnviron())
 
     def createOutputStep(self):
         partSet = self._getInputParticles()
@@ -156,8 +155,9 @@ class ProtCryoEF(ProtAnalysis3D):
     
     def _summary(self):
         summary = []
-        if self.getOutputsSize() > 0:
-            results = parseOutput(self._getExtraPath('input_angles.log'))
+
+        if hasattr(self, 'outputVolume1'):
+            results = list(parseOutput(self._getExtraPath('input_angles.log')))
             eff, meanRes, stdev, worstRes, bestRes = results
             summary.append('Efficiency of the orientation distribution: *%0.2f*' % eff)
             summary.append('Mean PSF resolution: *%0.2f A*' % meanRes)
@@ -187,7 +187,7 @@ class ProtCryoEF(ProtAnalysis3D):
                 '-m': self.maxTilt.get()
                 }
         if self.FSCres.get() != -1:
-            args.update({'-r': self.FSCres.get()})
+            args['-r'] = self.FSCres.get()
 
         return args
 

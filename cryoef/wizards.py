@@ -23,9 +23,6 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-This module implement some wizards
-"""
 
 from pwem.constants import UNIT_ANGSTROM
 from pwem.wizards import ParticleMaskRadiusWizard
