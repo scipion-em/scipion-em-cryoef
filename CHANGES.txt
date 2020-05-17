@@ -1,3 +1,4 @@
+1.0.8 - fix viewer bug
 1.0.6 - Migrated to python3
 1.0.5 - switch to rst format
 1.0.4 - minor corrections
