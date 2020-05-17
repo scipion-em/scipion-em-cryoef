@@ -89,7 +89,7 @@ class CryoEFViewer(EmProtocolViewer):
 # =============================================================================
 # ShowVolumes
 # =============================================================================
-    def _showVolumes(self):
+    def _showVolumes(self, param=None):
         if self.displayVol == VOLUME_CHIMERA:
             return self._showVolumesChimera()
         elif self.displayVol == VOLUME_SLICES:
@@ -109,7 +109,7 @@ class CryoEFViewer(EmProtocolViewer):
 # =============================================================================
 # showAngularDistribution
 # =============================================================================
-    def _showAngularDistribution(self):
+    def _showAngularDistribution(self, param=None):
         views = []
         plot = self._createAngDist2D()
         views.append(plot)
@@ -133,7 +133,7 @@ class CryoEFViewer(EmProtocolViewer):
 
 # =============================================================================
 
-    def _showHistogram(self):
+    def _showHistogram(self, param=None):
         fn = self.protocol._getFileName('output_hist')
         with open(fn) as f:
             views = []
@@ -147,7 +147,7 @@ class CryoEFViewer(EmProtocolViewer):
 
         return views.append(plotter)
 
-    def _showLogFile(self):
+    def _showLogFile(self, param=None):
         view = self.textView([self.protocol._getFileName('output_log')],
                              "Output log file")
         return [view]
