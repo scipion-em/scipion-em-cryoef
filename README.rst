@@ -4,12 +4,13 @@ Cryoef plugin
 
 This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/>`_ program.
 
-+------------------+------------------+
-| stable: |stable| | devel: | |devel| |
-+------------------+------------------+
++--------------+----------------+--------------------+
+| prod: |prod| | devel: |devel| | support: |support| |
++--------------+----------------+--------------------+
 
-.. |stable| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_prod.svg
-.. |devel| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_sdevel.svg
+.. |prod| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_prod.svg
+.. |devel| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_devel.svg
+.. |support| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_support.svg
 
 
 Installation
