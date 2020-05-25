@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -35,44 +35,45 @@ def parseOutput(filename):
     """
     result = []
     if os.path.exists(filename):
-        f = open(filename)
-        for line in f:
-            if 'Efficiency:' in line:
-                result.append(float(line.split()[1]))
-            if 'Mean PSF resolution:' in line:
-                result.append(float(line.split()[3]))
-            if 'Standard deviation:' in line:
-                result.append(float(line.split()[2]))
-            if 'Worst PSF resolution:' in line:
-                result.append(float(line.split()[3]))
-            if 'Best PSF resolution:' in line:
-                result.append(float(line.split()[3]))
-        f.close()
-    return result
+        with open(filename) as f:
+            for line in f:
+                if "Efficiency:" in line:
+                    result.append(line.split()[1])
+                    continue
+                elif "Mean PSF resolution:" in line:
+                    result.append(line.split()[3])
+                    continue
+                elif "Standard deviation:" in line:
+                    result.append(line.split()[2])
+                    continue
+                elif "Worst PSF resolution:" in line:
+                    result.append(line.split()[3])
+                    continue
+                elif "Best PSF resolution" in line:
+                    result.append(line.split()[3])
+                    break
+
+    return map(float, result)
 
 
 def iterAngles(fn):
-    f = open(fn)
-    for line in f:
-        rot, tilt = map(float, line.split())
-        yield rot, tilt
-    f.close()
+    with open(fn) as f:
+        for line in f:
+            rot, tilt = map(float, line.split())
+            yield rot, tilt
 
 
 def writeAnglesFn(img, fn):
     # get alignment parameters for each particle
-    shifts, angles = geometryFromMatrix(img.getTransform().getMatrix())
+    angles = geometryFromMatrix(img.getTransform().getMatrix())
     rot, tilt, _ = angles
     fn.write("%0.6f %0.6f\n" % (rot, tilt))
 
 
-def geometryFromMatrix(matrix, inverseTransform=True):
-    from pyworkflow.em.convert.transformations import  translation_from_matrix, euler_from_matrix
+def geometryFromMatrix(matrix):
+    from pwem.convert.transformations import euler_from_matrix
 
-    if inverseTransform:
-        matrix = inv(matrix)
-        shifts = -translation_from_matrix(matrix)
-    else:
-        shifts = translation_from_matrix(matrix)
+    matrix = inv(matrix)
     angles = -rad2deg(euler_from_matrix(matrix, axes='szyz'))
-    return shifts, angles
+
+    return angles

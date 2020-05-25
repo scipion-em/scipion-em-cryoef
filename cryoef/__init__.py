@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -25,7 +25,8 @@
 # **************************************************************************
 
 import os
-import pyworkflow.em
+import pwem
+
 from pyworkflow.utils import Environ
 
 from cryoef.constants import CRYOEF_HOME, V1_1_0
@@ -34,7 +35,7 @@ _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
 
 
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = CRYOEF_HOME
     _pathVars = [CRYOEF_HOME]
     _supportedVersions = [V1_1_0]
@@ -61,5 +62,3 @@ class Plugin(pyworkflow.em.Plugin):
         env.addPackage('cryoEF', version='1.1.0',
                        tar='cryoEF_v1.1.0.tgz',
                        default=True)
-
-pyworkflow.em.Domain.registerPlugin(__name__)

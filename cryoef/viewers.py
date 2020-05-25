@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -27,23 +27,24 @@
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pyworkflow.protocol.params import LabelParam, EnumParam, IntParam
 from pyworkflow.utils import exists
-from pyworkflow.viewer import ProtocolViewer, DESKTOP_TKINTER
-from pyworkflow.em.viewers import DataView, ChimeraClientView, EmPlotter
+from pyworkflow.viewer import DESKTOP_TKINTER
+from pwem.viewers import (DataView, ChimeraClientView,
+                          EmPlotter, EmProtocolViewer)
 
 from cryoef.protocols import ProtCryoEF
 from cryoef.convert import iterAngles
 from cryoef.constants import *
 
 
-class CryoEFViewer(ProtocolViewer):
+class CryoEFViewer(EmProtocolViewer):
     """ Visualization of cryoEF results. """
            
     _environments = [DESKTOP_TKINTER]
     _targets = [ProtCryoEF]
-    _label = 'viewer cryoEF'
+    _label = 'viewer'
 
     def __init__(self, **kwargs):
-        ProtocolViewer.__init__(self, **kwargs)
+        EmProtocolViewer.__init__(self, **kwargs)
 
     def _defineParams(self, form):
         form.addSection(label='Visualization')
@@ -88,7 +89,7 @@ class CryoEFViewer(ProtocolViewer):
 # =============================================================================
 # ShowVolumes
 # =============================================================================
-    def _showVolumes(self, paramName=None):
+    def _showVolumes(self, param=None):
         if self.displayVol == VOLUME_CHIMERA:
             return self._showVolumesChimera()
         elif self.displayVol == VOLUME_SLICES:
@@ -108,7 +109,7 @@ class CryoEFViewer(ProtocolViewer):
 # =============================================================================
 # showAngularDistribution
 # =============================================================================
-    def _showAngularDistribution(self, paramName=None):
+    def _showAngularDistribution(self, param=None):
         views = []
         plot = self._createAngDist2D()
         views.append(plot)
@@ -134,14 +135,13 @@ class CryoEFViewer(ProtocolViewer):
 
     def _showHistogram(self, param=None):
         fn = self.protocol._getFileName('output_hist')
-        f = open(fn)
-        views = []
-        numberOfBins = 10
-        plotter = EmPlotter()
-        plotter.createSubPlot("PSF Resolution histogram",
-                              "Resolution (A)", "Ang (str)")
-        resolution = [float(line.strip()) for line in f]
-        f.close()
+        with open(fn) as f:
+            views = []
+            numberOfBins = 10
+            plotter = EmPlotter()
+            plotter.createSubPlot("PSF Resolution histogram",
+                                  "Resolution (A)", "Ang (str)")
+            resolution = [float(line.strip()) for line in f]
         plotter.plotHist(resolution, nbins=numberOfBins)
         plotter.show()
 

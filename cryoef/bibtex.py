@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -27,15 +27,15 @@
 """
 
 @article{Naydenova2017,
-  title={Measuring the effects of particle orientation to improve the efficiency of electron cryomicroscopy},
-  author={Naydenova, K. and Russo, C.J.},
-  journal={Nature communications},
-  volume={8},
-  number={1},
-  pages={},
-  year={2017},
-  publisher={Nature Publishing Group},
-  doi = {http://dx.doi.org/10.1038/s41467-017-00782-3}
+  title="Measuring the effects of particle orientation to improve the efficiency of electron cryomicroscopy",
+  author="Naydenova, K. and Russo, C.J.",
+  journal="Nature communications",
+  volume="8",
+  number="1",
+  pages="",
+  year="2017",
+  publisher="Nature Publishing Group",
+  doi = "http://dx.doi.org/10.1038/s41467-017-00782-3"
 }
 
 
