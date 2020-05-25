@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -29,9 +29,9 @@ distribution of single-particle EM data
 """
 
 import pyworkflow.protocol.params as params
-from pyworkflow.em.protocol import ProtAnalysis3D, LEVEL_ADVANCED
-from pyworkflow.em.data import Volume
-import cryoef
+from pwem.protocols import ProtAnalysis3D
+from pwem.objects import Volume
+from cryoef import Plugin
 from cryoef.convert import writeAnglesFn, parseOutput
 
 
@@ -66,7 +66,7 @@ class ProtCryoEF(ProtAnalysis3D):
 
         self._updateFilenamesDict(myDict)
 
-    #--------------------------- DEFINE param functions ------------------------
+    # --------------------------- DEFINE param functions ----------------------
 
     def _defineParams(self, form):
         form.addSection(label='Input')
@@ -86,26 +86,26 @@ class ProtCryoEF(ProtAnalysis3D):
                       help='Approximate particle diameter, in Angstroms.')
         form.addParam('angAcc', params.IntParam, default=1,
                       label='Angular accuracy (deg)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='Angular accuracy in degrees.')
         form.addParam('Bfact', params.IntParam, default=160,
                       label='B-factor (A^2)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='B-factor estimate for your data, if one was '
                            'estimated for the 3D reconstruction.')
         form.addParam('FSCres', params.FloatParam, default=-1,
                       label='FSC resolution (A)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='FSC resolution using 0.143 criterion. '
                            'Default (-1) value means that resolution will be '
                            'automatically estimated from B-factor.')
         form.addParam('maxTilt', params.IntParam, default=45,
                       label='Max tilt angle (deg)',
-                      expertLevel=LEVEL_ADVANCED,
+                      expertLevel=params.LEVEL_ADVANCED,
                       help='Maximum tilt angle allowed for prediction '
                            'algorithm, in degrees.')
 
-    #--------------------------- INSERT steps functions ------------------------
+    # --------------------------- INSERT steps functions ----------------------
     
     def _insertAllSteps(self):
         # Insert processing steps
@@ -114,24 +114,23 @@ class ProtCryoEF(ProtAnalysis3D):
         self._insertFunctionStep('runCryoEFStep')
         self._insertFunctionStep('createOutputStep')
 
-    #--------------------------- STEPS functions -------------------------------
+    # --------------------------- STEPS functions -----------------------------
     
     def convertInputStep(self):
         """ Convert input angles as expected by cryoEF."""
         partSet = self._getInputParticles()
         anglesFn = self._getFileName('anglesFn')
-        f = open(anglesFn, 'w')
-        for part in partSet:
-            writeAnglesFn(part, f)
-        f.close()
+        with open(anglesFn, 'a') as f:
+            for part in partSet:
+                writeAnglesFn(part, f)
 
     def runCryoEFStep(self):
         """ Call cryoEF with the appropriate parameters. """
         args = self._getArgs()
-        param = ' '.join(['%s %s' % (k, str(v)) for k, v in args.iteritems()])
-        program = cryoef.Plugin.getProgram()
+        param = ' '.join(['%s %s' % (k, str(v)) for k, v in args.items()])
+        program = Plugin.getProgram()
 
-        self.runJob(program, param, env=cryoef.Plugin.getEnviron())
+        self.runJob(program, param, env=Plugin.getEnviron())
 
     def createOutputStep(self):
         partSet = self._getInputParticles()
@@ -152,12 +151,13 @@ class ProtCryoEF(ProtAnalysis3D):
         self._defineSourceRelation(self.inputParticles, vol)
         self._defineSourceRelation(self.inputParticles, vol2)
 
-    #--------------------------- INFO functions --------------------------------
+    # --------------------------- INFO functions ------------------------------
     
     def _summary(self):
         summary = []
-        if self.getOutputsSize() > 0:
-            results = parseOutput(self._getExtraPath('input_angles.log'))
+
+        if hasattr(self, 'outputVolume1'):
+            results = list(parseOutput(self._getExtraPath('input_angles.log')))
             eff, meanRes, stdev, worstRes, bestRes = results
             summary.append('Efficiency of the orientation distribution: *%0.2f*' % eff)
             summary.append('Mean PSF resolution: *%0.2f A*' % meanRes)
@@ -174,7 +174,7 @@ class ProtCryoEF(ProtAnalysis3D):
 
         return errors
     
-    #--------------------------- UTILS functions -------------------------------
+    # --------------------------- UTILS functions -----------------------------
  
     def _getArgs(self):
         """ Prepare the args dictionary."""
@@ -187,7 +187,7 @@ class ProtCryoEF(ProtAnalysis3D):
                 '-m': self.maxTilt.get()
                 }
         if self.FSCres.get() != -1:
-            args.update({'-r': self.FSCres.get()})
+            args['-r'] = self.FSCres.get()
 
         return args
 

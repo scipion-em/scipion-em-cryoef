@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -25,10 +25,11 @@
 # **************************************************************************
 
 
-from pyworkflow.utils import exists
+from pyworkflow.utils import exists, magentaStr
 from pyworkflow.tests import BaseTest, DataSet, setupTestProject
-from pyworkflow.em.protocol import ProtImportParticles
-from cryoef.protocols import ProtCryoEF
+from pwem.protocols import ProtImportParticles
+
+from ..protocols import ProtCryoEF
 
 
 class TestCryoEFBase(BaseTest):
@@ -55,9 +56,11 @@ class TestCryoEF(TestCryoEFBase):
     def setUpClass(cls):
         setupTestProject(cls)
         TestCryoEFBase.setData()
+        print(magentaStr("\n==> Importing data - particles:"))
         cls.protImportParts = cls.runImportParticlesStar(cls.partFn, 50000, 7.08)
 
     def test_cryoEF(self):
+        print(magentaStr("\n==> Testing cryoEF:"))
         protFsc = self.newProtocol(ProtCryoEF,
                                    inputParticles=self.protImportParts.outputParticles,
                                    diam=300)
