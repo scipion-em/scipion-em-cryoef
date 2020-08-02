@@ -23,13 +23,13 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
+import os
 
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pyworkflow.protocol.params import LabelParam, EnumParam, IntParam
 from pyworkflow.utils import exists
 from pyworkflow.viewer import DESKTOP_TKINTER
-from pwem.viewers import (DataView, ChimeraClientView,
-                          EmPlotter, EmProtocolViewer)
+from pwem.viewers import DataView, EmPlotter, EmProtocolViewer, ChimeraView
 
 from cryoef.protocols import ProtCryoEF
 from cryoef.convert import iterAngles
@@ -97,14 +97,17 @@ class CryoEFViewer(EmProtocolViewer):
 
     def _showVolumesChimera(self):
         """ Create a chimera script to visualize selected volumes. """
-        volumes = self._getVolumeNames()
-        view = ChimeraClientView(volumes)
-
+        volume = self._getVolumeName()
+        cmdFile = self.protocol._getExtraPath('chimera_volumes.cxc')
+        with open(cmdFile, 'w+') as f:
+            localVol = os.path.basename(volume)
+            if exists(volume):
+                f.write("open %s\n" % localVol)
+        view = ChimeraView(cmdFile)
         return [view]
 
     def _showVolumeShowj(self):
-        vols = str(self._getVolumeNames())
-        return [DataView(vols)]
+        return [DataView(self._getVolumeName())]
 
 # =============================================================================
 # showAngularDistribution
@@ -152,10 +155,10 @@ class CryoEFViewer(EmProtocolViewer):
                              "Output log file")
         return [view]
 
-    def _getVolumeNames(self):
+    def _getVolumeName(self):
         if self.doShowOutVol.get() == VOL_RS_PSF:
-            vols = self.protocol._getFileName('real space PSF')
+            vol = self.protocol._getFileName('real space PSF')
         else:  # VOL_FS_PSF
-            vols = self.protocol._getFileName('fourier space PSF')
+            vol = self.protocol._getFileName('fourier space PSF')
 
-        return vols
+        return vol
