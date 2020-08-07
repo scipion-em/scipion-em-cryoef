@@ -1,3 +1,4 @@
+3.0.9 - update to support ChimeraX
 3.0.8 - changed version to reflect Scipion 3 support
 1.0.8 - fix viewer bug
 1.0.6 - Migrated to python3
