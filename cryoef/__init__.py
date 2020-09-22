@@ -33,6 +33,7 @@ from cryoef.constants import CRYOEF_HOME, V1_1_0
 
 _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
+_url = "https://github.com/scipion-em/scipion-em-cryoef"
 
 
 class Plugin(pwem.Plugin):
