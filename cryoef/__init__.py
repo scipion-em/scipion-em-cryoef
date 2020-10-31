@@ -31,15 +31,17 @@ from pyworkflow.utils import Environ
 
 from cryoef.constants import CRYOEF_HOME, V1_1_0
 
+
+__version__ = '3.0.9'
 _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
-_url = "https://github.com/scipion-em/scipion-em-cryoef"
 
 
 class Plugin(pwem.Plugin):
     _homeVar = CRYOEF_HOME
     _pathVars = [CRYOEF_HOME]
     _supportedVersions = [V1_1_0]
+    _url = "https://github.com/scipion-em/scipion-em-cryoef"
 
     @classmethod
     def _defineVariables(cls):
