@@ -32,7 +32,7 @@ from pyworkflow.utils import Environ
 from cryoef.constants import CRYOEF_HOME, V1_1_0
 
 
-__version__ = '3.0.9'
+__version__ = '3.0.10'
 _logo = "cryoEF_logo.png"
 _references = ['Naydenova2017']
 
