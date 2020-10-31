@@ -4,6 +4,27 @@ Cryoef plugin
 
 This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/>`_ program.
 
+.. image:: https://img.shields.io/pypi/v/scipion-em-cryoef.svg
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: PyPI release
+
+.. image:: https://img.shields.io/pypi/l/scipion-em-cryoef.svg
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: License
+
+.. image:: https://img.shields.io/pypi/pyversions/scipion-em-cryoef.svg
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: Supported Python versions
+
+.. image:: https://img.shields.io/sonar/quality_gate/scipion-em_scipion-em-cryoef?server=https%3A%2F%2Fsonarcloud.io
+        :target: https://sonarcloud.io/dashboard?id=scipion-em_scipion-em-cryoef
+        :alt: SonarCloud quality gate
+
+.. image:: https://img.shields.io/pypi/dm/scipion-em-cryoef
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: Downloads
+
+
 +--------------+----------------+--------------------+
 | prod: |prod| | devel: |devel| | support: |support| |
 +--------------+----------------+--------------------+
