@@ -39,16 +39,12 @@ def parseOutput(filename):
             for line in f:
                 if "Efficiency:" in line:
                     result.append(line.split()[1])
-                    continue
                 elif "Mean PSF resolution:" in line:
                     result.append(line.split()[3])
-                    continue
                 elif "Standard deviation:" in line:
                     result.append(line.split()[2])
-                    continue
                 elif "Worst PSF resolution:" in line:
                     result.append(line.split()[3])
-                    continue
                 elif "Best PSF resolution" in line:
                     result.append(line.split()[3])
                     break
