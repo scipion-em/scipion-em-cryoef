@@ -23,22 +23,18 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-Protocol wrapper around the cryoEF tool for analysing the orientation
-distribution of single-particle EM data
-"""
 
 import pyworkflow.protocol.params as params
 from pwem.protocols import ProtAnalysis3D
 from pwem.objects import Volume
+
 from cryoef import Plugin
-from cryoef.convert import writeAnglesFn, parseOutput
+from ..convert import writeAnglesFn, parseOutput
 
 
 class ProtCryoEF(ProtAnalysis3D):
-    """
-    Protocol for analysing the orientation distribution of single-particle EM data.
-     
+    """ Protocol for analysing the orientation distribution of single-particle EM data.
+
     Find more information at http://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/
     """
     _label = 'orientation analysis'
@@ -54,7 +50,7 @@ class ProtCryoEF(ProtAnalysis3D):
         self._createFilenameTemplates()
 
     def _createFilenameTemplates(self):
-        """ Centralize how files are called for iterations and references. """
+        """ Centralize how files are called. """
         myDict = {
                   'anglesFn': self._getExtraPath('input_angles.dat'),
                   'projections': self._getExtraPath('input_projections.sqlite'),

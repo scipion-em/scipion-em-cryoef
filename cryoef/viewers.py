@@ -31,9 +31,9 @@ from pyworkflow.utils import exists
 from pyworkflow.viewer import DESKTOP_TKINTER
 from pwem.viewers import DataView, EmPlotter, EmProtocolViewer, ChimeraView
 
-from cryoef.protocols import ProtCryoEF
-from cryoef.convert import iterAngles
-from cryoef.constants import *
+from .protocols import ProtCryoEF
+from .convert import iterAngles
+from .constants import *
 
 
 class CryoEFViewer(EmProtocolViewer):
