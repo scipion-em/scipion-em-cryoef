@@ -25,8 +25,8 @@
 # **************************************************************************
 
 import os
-import pwem
 
+import pwem
 from pyworkflow.utils import Environ
 
 from cryoef.constants import CRYOEF_HOME, V1_1_0

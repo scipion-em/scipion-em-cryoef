@@ -123,8 +123,7 @@ class CryoEFViewer(EmProtocolViewer):
         # Common variables to use
         nparts = self.protocol._getInputParticles().getSize()
         title = "Angular Distribution"
-        plotter = EmPlotter(x=1, y=1,
-                            windowTitle=title)
+        plotter = EmPlotter(windowTitle=title)
         sqliteFn = self.protocol._getFileName('projections')
         if not exists(sqliteFn):
             self.createAngDistributionSqlite(sqliteFn, nparts,
