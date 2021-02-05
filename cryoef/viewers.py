@@ -27,7 +27,6 @@ import os
 
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pyworkflow.protocol.params import LabelParam, EnumParam, IntParam
-from pyworkflow.utils import exists
 from pyworkflow.viewer import DESKTOP_TKINTER
 from pwem.viewers import DataView, EmPlotter, EmProtocolViewer, ChimeraView
 
@@ -101,7 +100,7 @@ class CryoEFViewer(EmProtocolViewer):
         cmdFile = self.protocol._getExtraPath('chimera_volumes.cxc')
         with open(cmdFile, 'w+') as f:
             localVol = os.path.basename(volume)
-            if exists(volume):
+            if os.path.exists(volume):
                 f.write("open %s\n" % localVol)
         view = ChimeraView(cmdFile)
         return [view]
@@ -125,7 +124,7 @@ class CryoEFViewer(EmProtocolViewer):
         title = "Angular Distribution"
         plotter = EmPlotter(windowTitle=title)
         sqliteFn = self.protocol._getFileName('projections')
-        if not exists(sqliteFn):
+        if not os.path.exists(sqliteFn):
             self.createAngDistributionSqlite(sqliteFn, nparts,
                                              itemDataIterator=iterAngles(
                                                  self.protocol._getFileName('anglesFn')))

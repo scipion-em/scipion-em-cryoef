@@ -24,7 +24,9 @@
 # *
 # **************************************************************************
 
-from pyworkflow.utils import exists, magentaStr
+import os
+
+from pyworkflow.utils import magentaStr
 from pyworkflow.tests import BaseTest, DataSet, setupTestProject
 from pwem.protocols import ProtImportParticles
 
@@ -65,5 +67,5 @@ class TestCryoEF(TestCryoEFBase):
                                    diam=300)
         self.launchProtocol(protFsc)
         protFsc._initialize()
-        self.assertTrue(exists(protFsc._getFileName('real space PSF')),
+        self.assertTrue(os.path.exists(protFsc._getFileName('real space PSF')),
                         "cryoEF has failed")
