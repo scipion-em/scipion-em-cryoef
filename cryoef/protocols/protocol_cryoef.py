@@ -25,6 +25,7 @@
 # **************************************************************************
 
 import pyworkflow.protocol.params as params
+from pyworkflow.constants import PROD
 from pwem.protocols import ProtAnalysis3D
 from pwem.objects import Volume
 
@@ -38,6 +39,7 @@ class ProtCryoEF(ProtAnalysis3D):
     Find more information at http://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/
     """
     _label = 'orientation analysis'
+    _devStatus = PROD
 
     def __init__(self, **kwargs):
         ProtAnalysis3D.__init__(self, **kwargs)

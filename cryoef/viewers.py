@@ -99,7 +99,8 @@ class CryoEFViewer(EmProtocolViewer):
         volume = self._getVolumeName()
         cmdFile = self.protocol._getExtraPath('chimera_volumes.cxc')
         with open(cmdFile, 'w+') as f:
-            localVol = os.path.basename(volume)
+            localVol = os.path.relpath(volume,
+                                       self.protocol._getExtraPath())
             if os.path.exists(volume):
                 f.write("open %s\n" % localVol)
         view = ChimeraView(cmdFile)

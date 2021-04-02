@@ -1,4 +1,4 @@
-3.0.11 - WIP
+3.0.11 - minor changes
 3.0.10 - add Github actions
 3.0.9 - update to support ChimeraX
 3.0.8 - changed version to reflect Scipion 3 support
