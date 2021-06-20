@@ -69,6 +69,13 @@ class CryoEFViewer(EmProtocolViewer):
                       label='Display angular distribution',
                       help='Display angular distribution as '
                            'interactive 2D in matplotlib.')
+        form.addParam('showMollweidePlot', LabelParam,
+                      label='Mollweide projection plot of orientation distribution',
+                      help='The orientation distributions of the particles are '
+                           'plotted on an equal-area Mollweide projection, with '
+                           'the color scale representing the local Gaussian kernel '
+                           'density (probability distribution function '
+                           '[PDF]) of the distribution at every sampled orientation.')
         form.addParam('spheresScale', IntParam, default=100,
                       expertLevel=LEVEL_ADVANCED,
                       label='Spheres size')
@@ -81,6 +88,7 @@ class CryoEFViewer(EmProtocolViewer):
         self.protocol._initialize()  # Load filename templates
         return {'doShowOutVol': self._showVolumes,
                 'displayAngDist': self._showAngularDistribution,
+                'showMollweidePlot': self._showMollweide,
                 'doShowHistogram': self._showHistogram,
                 'doShowLog': self._showLogFile
                 }
@@ -132,6 +140,58 @@ class CryoEFViewer(EmProtocolViewer):
         plotter.plotAngularDistributionFromMd(sqliteFn, title)
 
         return plotter
+
+    def _showMollweide(self, param=None):
+        """ This plot script is based on two scripts by their respective authors:
+            - PlotOD.py from cryoEF package
+            - https://github.com/PirateFernandez/python3_rln_scripts/blob/main/rln_star_2_mollweide_any_star.py
+        """
+        import numpy as np
+        from matplotlib import spines
+        from scipy.stats import gaussian_kde
+
+        views = []
+        xplotter = EmPlotter(windowTitle="Mollweide projection plot of orientation distribution")
+        fn = np.genfromtxt(self.protocol._getFileName('anglesFn'), delimiter=' ')
+        phi = fn[:, 0]
+        theta = fn[:, 1]
+
+        # Convert degrees to radians and obey angular range conventions
+        x = phi / 180 * np.pi  # x is the phi angle (longitude)
+        y = theta / 180 * np.pi  # y is the theta angle (latitude)
+        y = -1 * y + np.pi / 2  # The convention in RELION is [0, 180] for theta,
+        # whereas for the projection function it is [90, -90], so this conversion is required.
+        vertical_rad = np.vstack([y, x])
+        m = gaussian_kde(vertical_rad)(vertical_rad)
+
+        ax = xplotter.createSubPlot('', 'phi', 'theta',
+                                    projection="mollweide")
+        # Plot your points on the projection
+        #ax.plot(x, y, ',', alpha=0.5, color='#64B5F6')  # alpha - transparency (from 0 to 1), color - specify hex code
+        a = ax.scatter(x, y, cmap='plasma', c=m, s=2, alpha=0.4)
+        # Draw the horizontal and the vertical grid lines. Can add more grid lines if required.
+        major_ticks_x = [-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi]
+        major_ticks_y = [-np.pi / 2, -np.pi / 4, 0, np.pi / 4, np.pi / 2]
+        ax.set_xticks(major_ticks_x)
+        ax.set_yticks(major_ticks_y)
+        ax.set_xticklabels(['-180$^\circ$','-90$^\circ$','0$^\circ$','90$^\circ$','180$^\circ$'],
+                           color='grey')
+        ax.set_yticklabels(['-90$^\circ$','-45$^\circ$','0$^\circ$','45$^\circ$','90$^\circ$'],
+                           color='grey')
+
+        # Set the color and the thickness of the grid lines
+        ax.grid(which='both', linestyle='--', linewidth=1, color='#555F61')
+
+        # Set the color and the thickness of the outlines
+        for child in ax.get_children():
+            if isinstance(child, spines.Spine):
+                child.set_color('#555F61')
+
+        xplotter.getColorBar(a)
+        xplotter.tightLayout()
+        xplotter.show()
+
+        return views.append(xplotter)
 
 # =============================================================================
 
