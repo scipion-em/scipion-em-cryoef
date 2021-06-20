@@ -4,6 +4,27 @@ Cryoef plugin
 
 This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/>`_ program.
 
+.. image:: https://img.shields.io/pypi/v/scipion-em-cryoef.svg
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: PyPI release
+
+.. image:: https://img.shields.io/pypi/l/scipion-em-cryoef.svg
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: License
+
+.. image:: https://img.shields.io/pypi/pyversions/scipion-em-cryoef.svg
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: Supported Python versions
+
+.. image:: https://img.shields.io/sonar/quality_gate/scipion-em_scipion-em-cryoef?server=https%3A%2F%2Fsonarcloud.io
+        :target: https://sonarcloud.io/dashboard?id=scipion-em_scipion-em-cryoef
+        :alt: SonarCloud quality gate
+
+.. image:: https://img.shields.io/pypi/dm/scipion-em-cryoef
+        :target: https://pypi.python.org/pypi/scipion-em-cryoef
+        :alt: Downloads
+
+
 +--------------+----------------+--------------------+
 | prod: |prod| | devel: |devel| | support: |support| |
 +--------------+----------------+--------------------+
@@ -16,7 +37,7 @@ This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crus
 Installation
 ------------
 
-You will need to use `3.0 <https://github.com/I2PC/scipion/releases/tag/V3.0.0>`_ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
+You will need to use 3.0+ version of Scipion to be able to run these protocols. To install the plugin, you have two options:
 
 a) Stable version
 

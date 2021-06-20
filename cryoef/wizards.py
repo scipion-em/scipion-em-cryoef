@@ -26,7 +26,8 @@
 
 from pwem.constants import UNIT_ANGSTROM
 from pwem.wizards import ParticleMaskRadiusWizard
-from cryoef.protocols import ProtCryoEF
+
+from .protocols import ProtCryoEF
 
 
 class cryoEFMaskDiameterWizard(ParticleMaskRadiusWizard):
