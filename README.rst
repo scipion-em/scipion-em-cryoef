@@ -2,7 +2,7 @@
 Cryoef plugin
 =============
 
-This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/>`_ program.
+This plugin provides a wrapper for `cryoEF <https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/>`_ program.
 
 .. image:: https://img.shields.io/pypi/v/scipion-em-cryoef.svg
         :target: https://pypi.python.org/pypi/scipion-em-cryoef
@@ -23,16 +23,6 @@ This plugin provide a wrapper around `cryoEF <https://www.mrc-lmb.cam.ac.uk/crus
 .. image:: https://img.shields.io/pypi/dm/scipion-em-cryoef
         :target: https://pypi.python.org/pypi/scipion-em-cryoef
         :alt: Downloads
-
-
-+--------------+----------------+--------------------+
-| prod: |prod| | devel: |devel| | support: |support| |
-+--------------+----------------+--------------------+
-
-.. |prod| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_prod.svg
-.. |devel| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_devel.svg
-.. |support| image:: http://scipion-test.cnb.csic.es:9980/badges/cryoef_support.svg
-
 
 Installation
 ------------
@@ -57,7 +47,7 @@ b) Developer's version
 
     .. code-block::
 
-        scipion installp -p path_to_scipion-em-cryoef --devel
+        scipion installp -p /path/to/scipion-em-cryoef --devel
 
 CryoEF binaries will be installed automatically with the plugin, but you can also link an existing installation. 
 Default installation path assumed is ``software/em/cryoEF-1.1.0``, if you want to change it, set *CRYOEF_HOME* in `scipion.conf`` file to the folder where the cryoEF is installed. To check the installation, simply run the following Scipion test:
