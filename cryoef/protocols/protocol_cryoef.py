@@ -40,6 +40,10 @@ class ProtCryoEF(ProtAnalysis3D):
     """
     _label = 'orientation analysis'
     _devStatus = PROD
+    _possibleOutputs = {
+        'outputVolume1': Volume,
+        'outputVolume2': Volume
+    }
 
     def __init__(self, **kwargs):
         ProtAnalysis3D.__init__(self, **kwargs)
