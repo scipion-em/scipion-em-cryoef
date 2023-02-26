@@ -41,7 +41,7 @@ class Plugin(pwem.Plugin):
     _homeVar = CRYOEF_HOME
     _pathVars = [CRYOEF_HOME]
     _supportedVersions = [V1_1_0]
-    _url = "https://www.mrc-lmb.cam.ac.uk/crusso/cryoEF/"
+    _url = "https://github.com/scipion-em/scipion-em-cryoef"
 
     @classmethod
     def _defineVariables(cls):
