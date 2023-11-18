@@ -79,7 +79,7 @@ class ProtCryoEF(ProtAnalysis3D):
                       label="Symmetry",
                       help='If the molecule is asymmetric, set Symmetry group '
                            'to C1. Look at the XMIPP Wiki for more details:'
-                           ' http://xmipp.cnb.csic.es/twiki/bin/view/Xmipp/'
+                           ' https://xmipp.cnb.csic.es/twiki/bin/view/Xmipp/'
                            'WebHome?topic=Symmetry')
         form.addParam('diam', params.IntParam, default=200,
                       label='Particle diameter (A)',
