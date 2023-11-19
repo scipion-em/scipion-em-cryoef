@@ -32,7 +32,7 @@ from pwem.viewers import DataView, EmPlotter, EmProtocolViewer, ChimeraView
 
 from .protocols import ProtCryoEF
 from .convert import iterAngles
-from .constants import *
+from .constants import VOLUME_SLICES, VOL_RS_PSF, VOLUME_CHIMERA
 
 
 class CryoEFViewer(EmProtocolViewer):
@@ -167,16 +167,16 @@ class CryoEFViewer(EmProtocolViewer):
         ax = xplotter.createSubPlot('', 'phi', 'theta',
                                     projection="mollweide")
         # Plot your points on the projection
-        #ax.plot(x, y, ',', alpha=0.5, color='#64B5F6')  # alpha - transparency (from 0 to 1), color - specify hex code
+        # ax.plot(x, y, ',', alpha=0.5, color='#64B5F6')  # alpha - transparency (from 0 to 1), color - specify hex code
         a = ax.scatter(x, y, cmap='plasma', c=m, s=2, alpha=0.4)
         # Draw the horizontal and the vertical grid lines. Can add more grid lines if required.
         major_ticks_x = [-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi]
         major_ticks_y = [-np.pi / 2, -np.pi / 4, 0, np.pi / 4, np.pi / 2]
         ax.set_xticks(major_ticks_x)
         ax.set_yticks(major_ticks_y)
-        ax.set_xticklabels(['-180$^\circ$','-90$^\circ$','0$^\circ$','90$^\circ$','180$^\circ$'],
+        ax.set_xticklabels([r'-180$^\circ$', r'-90$^\circ$', r'0$^\circ$', r'90$^\circ$', r'180$^\circ$'],
                            color='grey')
-        ax.set_yticklabels(['-90$^\circ$','-45$^\circ$','0$^\circ$','45$^\circ$','90$^\circ$'],
+        ax.set_yticklabels([r'-90$^\circ$', r'-45$^\circ$', r'0$^\circ$', r'45$^\circ$', r'90$^\circ$'],
                            color='grey')
 
         # Set the color and the thickness of the grid lines
@@ -192,8 +192,6 @@ class CryoEFViewer(EmProtocolViewer):
         xplotter.show()
 
         return views.append(xplotter)
-
-# =============================================================================
 
     def _showHistogram(self, param=None):
         fn = self.protocol._getFileName('output_hist')
