@@ -1,3 +1,4 @@
+3.0.15 - maintenance release
 3.0.14 - add possible outputs dict
 3.0.13 - minor changes
 3.0.12 - add Mollweide plot
