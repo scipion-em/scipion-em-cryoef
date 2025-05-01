@@ -110,9 +110,9 @@ class ProtCryoEF(ProtAnalysis3D):
     def _insertAllSteps(self):
         # Insert processing steps
         self._initialize()
-        self._insertFunctionStep('convertInputStep')
-        self._insertFunctionStep('runCryoEFStep')
-        self._insertFunctionStep('createOutputStep')
+        self._insertFunctionStep('convertInputStep', needsGPU=False)
+        self._insertFunctionStep('runCryoEFStep', needsGPU=False)
+        self._insertFunctionStep('createOutputStep', needsGPU=False)
 
     # --------------------------- STEPS functions -----------------------------
     
