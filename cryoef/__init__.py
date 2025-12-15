@@ -29,9 +29,10 @@ import os
 import pwem
 from pyworkflow.utils import Environ
 
+from pyworkflow import SPA
+
 from cryoef.constants import CRYOEF_HOME, V1_1_0
 
-from pyworkflow import SPA
 
 
 __version__ = '3.0.16'
