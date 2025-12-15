@@ -29,7 +29,10 @@ import os
 import pwem
 from pyworkflow.utils import Environ
 
+from pyworkflow import SPA
+
 from cryoef.constants import CRYOEF_HOME, V1_1_0
+
 
 
 __version__ = '3.0.16'
@@ -42,6 +45,7 @@ class Plugin(pwem.Plugin):
     _pathVars = [CRYOEF_HOME]
     _supportedVersions = [V1_1_0]
     _url = "https://github.com/scipion-em/scipion-em-cryoef"
+    _processingField = [SPA]
 
     @classmethod
     def _defineVariables(cls):
