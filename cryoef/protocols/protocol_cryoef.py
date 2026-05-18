@@ -34,7 +34,148 @@ from ..convert import writeAnglesFn, parseOutput
 
 
 class ProtCryoEF(ProtAnalysis3D):
-    """ Protocol for analysing the orientation distribution of single-particle EM data.
+    """
+    Analyses the orientation distribution of single-particle cryo-EM data
+    to evaluate sampling quality, directional coverage, and expected
+    reconstruction performance in both real and Fourier space.
+
+    AI Generated:
+
+    Orientation Analysis (ProtCryoEF) - User Manual
+        Overview
+
+        The Orientation Analysis protocol evaluates how particle
+        orientations are distributed within a single-particle cryo-EM
+        dataset. Its main purpose is to determine whether the angular
+        sampling of the experimental images is sufficiently uniform to
+        support a reliable three-dimensional reconstruction. Uneven
+        orientation distributions are a common limitation in cryo-EM and
+        can lead to directional resolution anisotropy, missing structural
+        information, or reconstruction artifacts.
+
+        In practical biological workflows, this analysis is especially
+        useful after refinement or reconstruction steps where particle
+        orientations have already been assigned. By examining the
+        orientation coverage, users can better understand the strengths
+        and weaknesses of their dataset before investing additional effort
+        into high-resolution interpretation, atomic modeling, or
+        classification strategies.
+
+        Inputs and Experimental Context
+
+        The protocol requires a set of particles containing projection
+        alignment information. These angular assignments are interpreted
+        as the experimental sampling of projection directions across the
+        molecule. Because the analysis depends entirely on the quality of
+        these orientations, the protocol is most meaningful when applied
+        to particles obtained from a well-converged refinement.
+
+        The symmetry definition is biologically important because it
+        determines how orientations are interpreted during the analysis.
+        Symmetric particles may compensate for incomplete angular
+        sampling through redundancy introduced by symmetry operations,
+        whereas asymmetric particles require much broader experimental
+        coverage. Selecting the correct symmetry group is therefore
+        essential for obtaining biologically meaningful conclusions.
+
+        The approximate particle diameter is also required because the
+        protocol estimates the effective sampling behavior relative to the
+        physical size of the reconstructed object. Accurate diameter
+        values improve the realism of the resulting point spread function
+        estimations and resolution predictions.
+
+        Angular Accuracy and Resolution Estimation
+
+        The protocol allows users to specify the expected angular
+        accuracy of the dataset. This parameter reflects the uncertainty
+        associated with particle orientation assignments during
+        refinement. Smaller angular uncertainties generally indicate
+        better refinement quality and more reliable directional sampling,
+        while larger uncertainties may reduce the effective resolution
+        achievable in the reconstruction.
+
+        An optional B-factor can also be provided to estimate the decay
+        of high-resolution signal within the dataset. In biological cryo-EM
+        studies, the B-factor often reflects cumulative effects from beam
+        damage, conformational heterogeneity, particle flexibility, and
+        alignment inaccuracies. Providing a realistic estimate improves
+        the interpretation of the predicted resolution distribution.
+
+        Users may additionally define an FSC resolution value when an
+        independent resolution estimate is already available from a
+        previous reconstruction workflow. This allows the protocol to
+        incorporate experimentally derived resolution information into the
+        orientation analysis. When no value is supplied, the protocol
+        estimates the effective resolution behavior automatically.
+
+        Tilt Constraints and Preferred Orientation
+
+        Preferred orientation is one of the most common challenges in
+        cryo-EM specimen preparation. Many biological complexes adopt
+        limited orientations on the grid, producing anisotropic sampling
+        in Fourier space. The protocol includes a maximum tilt parameter
+        that helps model the expected angular accessibility during data
+        collection and reconstruction.
+
+        From a biological perspective, datasets suffering from strong
+        preferred orientation may exhibit good resolution in some
+        directions but poor resolution in others. This effect can limit
+        the interpretability of flexible regions, membrane domains, or
+        elongated assemblies. Evaluating orientation coverage early in
+        the workflow can guide decisions such as collecting tilted data,
+        modifying grid preparation conditions, or optimizing biochemical
+        stabilization strategies.
+
+        Outputs and Their Interpretation
+
+        The protocol generates representations of the point spread
+        function in both real space and Fourier space. These outputs
+        provide complementary views of how angular sampling influences
+        the expected reconstruction quality.
+
+        The real-space representation helps visualize how directional
+        information propagates through the reconstructed volume. The
+        Fourier-space representation reveals regions of strong or weak
+        sampling and is especially useful for identifying anisotropy or
+        missing angular coverage.
+
+        Quantitative metrics are also produced to summarize the
+        efficiency and uniformity of the orientation distribution. These
+        include estimates of mean resolution behavior, variability across
+        directions, and the best and worst expected reconstruction
+        conditions. Together, these measurements provide a practical
+        assessment of whether the dataset supports isotropic
+        high-resolution interpretation.
+
+        Practical Recommendations
+
+        In routine cryo-EM workflows, orientation analysis is most useful
+        immediately after obtaining a stable three-dimensional refinement.
+        Datasets with broad angular coverage and low directional bias are
+        generally more suitable for downstream atomic interpretation and
+        flexible-region analysis.
+
+        When strong anisotropy is detected, biological users should
+        consider strategies to improve orientation diversity. These may
+        include collecting tilted datasets, changing support films,
+        adjusting buffer composition, modifying detergent conditions for
+        membrane proteins, or exploring alternative sample preparation
+        protocols.
+
+        Symmetry should always be verified carefully before analysis.
+        Incorrect symmetry assumptions can artificially improve or worsen
+        the apparent orientation distribution and may lead to misleading
+        conclusions regarding reconstruction quality.
+
+        Final Perspective
+
+        Orientation distribution analysis is not simply a geometric
+        diagnostic but an essential biological quality-control step in
+        cryo-EM reconstruction. Understanding how particles sample
+        different viewing directions provides critical insight into the
+        reliability, isotropy, and interpretability of the final map.
+        Careful interpretation of angular coverage can help guide both
+        experimental optimization and downstream structural analysis.
     """
     _label = 'orientation analysis'
     _devStatus = PROD
